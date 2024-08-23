@@ -16,8 +16,11 @@ def vote():
     # Load the key data
     with open("all_keys.json") as f: 
         all_keys = json.load(f)
-    with open("done_keys.json") as f: 
-        done_keys = json.load(f)
+    try:
+        with open("done_keys.json") as f: 
+            done_keys = json.load(f)
+    except FileNotFoundError:
+        done_keys = []
 
     # Check if the key is valid and not already used
     if key not in all_keys:
@@ -47,6 +50,8 @@ def vote():
             continue
         candidate = request.form.get(position)
         if candidate:
+            # replace _ with " " in positions
+            # position = 
             if position not in data:
                 data[position] = {}
             if candidate not in data[position]:
@@ -55,7 +60,7 @@ def vote():
 
     # Save the updated votes data
     with open("votes.json", "w") as file: 
-        json.dump(data, file)
+        json.dump(data, file, indent=4)
 
     # Render the success page
     return render_template("success.html")

@@ -21,15 +21,21 @@ class Email:
     def send_email(self, to, subject=f"{organisation} Election secret key"):
 
         key = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
-
-        with open("all_keys.json") as f:
-            data = json.load(f)
-            data.append(key)
+        
+        try:
+            with open("all_keys.json") as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            data = []
+        data.append(key)
         with open("all_keys.json", "w") as f:
             json.dump(data, f)
 
         body = f"""
 Hi!
+
+Here is your secret key for the {organisation} Election. Please keep it safe, don't share it with anyone. <b>You need to connect to the NISER Intranet for the voting site to work.</b>
+
 <p>Your SECRET_KEY (copy this): <strong>{key}</strong></p>
 <p>Link to voting site: <a href="{DOMAIN}/">Vote Here</a></p>
 <!-- <p>Link to Results site: <a href="{DOMAIN}/results">See Live Results Here</a></p> -->
