@@ -1,24 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Vaktabya Election</title>
-</head>
+{% block title %}
+Vote | {{ organization }} Election
+{% endblock %}
 
-<body>
-	<form action="/vote" method="post">
-		<p>Enter your SECRET_KEY in this box (you will find this in the email you recieved)</p>
-		<p><input type="text" name="KEY"></p>
-		<p>Your Vote for <strong>PRESIDENT</strong>:</p>
-		<p><input type="radio" name="candidate" value="agneev">Agneev Ray</p>
-		<p><input type="radio" name="candidate" value="vanshaj">Vanshaj Vidyan</p>
-		<br>
-		<br>
-		<p><input type="submit" value="Vote"></p>
-	</form>
-</body>
 
-</html>
+{% block content %}
+
+<form action="/vote" method="post">
+	<p>Enter your SECRET_KEY in this box (you will find this in the email you received):</p>
+	<p><input type="text" name="KEY" required></p>
+
+	{% if not allow_empty_submissions %}
+	    <p>The organisers have decided to allow empty submissions. So you are allowed to submit the form keeping some positions empty. Mostly this happens when they do not keep NOTA options enabled.</p>
+		<p>WARNING:You won't be alerted if you submit the form by mistake without selecting any candidate.</p>
+	{% endif %}
+
+	{% for position, candidates in candidates.items() %}
+	{% set sanitized_position = position|replace(' ', '_') %}
+	<p>Your Vote for <strong>{{ position|upper }}</strong>:</p>
+	{% for candidate in candidates %}
+	<p>
+		<input type="radio" id="{{ sanitized_position }}_{{ loop.index }}" name="{{ sanitized_position }}"
+			value="{{ candidate }}" {% if allow_empty_submissions %}required{% endif %}>
+		<label for="{{ sanitized_position }}_{{ loop.index }}">{{ candidate }}</label>
+	</p>
+	{% endfor %}
+	<br>
+	{% endfor %}
+
+	<p><input type="submit" value="Vote"></p>
+</form>
+
+{% endblock %}

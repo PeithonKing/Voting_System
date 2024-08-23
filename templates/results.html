@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Vaktabya Election | Results</title>
-</head>
-<body>
-	{% if data.agneev > data.vanshaj %}
-	<h1>Agneev is winning!</h1>
-	{% else %}
-	<h1>Vanshaj is winning!</h1>
-	{% endif %}
-	<p>Agneev: {{ data.agneev }}</p>
-	<p>Vanshaj: {{ data.vanshaj }}</p>
-	<h3>Total Voted: {{ data.agneev + data.vanshaj }}</h3>
-	<h3>Remaining Votes: {{ 11 - data.agneev - data.vanshaj }}</h3>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Results | {{ organization }} Election
+{% endblock %}
+
+{% block content %}
+
+{% if message %}
+<p>{{ message }}</p>
+{% else %}
+{% for position, candidates in results.items() %}
+    <h2>{{ position|upper }}</h2>
+    <ul>
+        {% for candidate, votes in candidates.items() %}
+            <li>{{ candidate }}: {{ votes }} vote{{ votes > 1 and 's' or '' }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
