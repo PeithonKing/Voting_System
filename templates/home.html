@@ -9,27 +9,27 @@ Vote | {{ organization }} Election
 
 <form action="/vote" method="post">
 	<p>Enter your SECRET_KEY in this box (you will find this in the email you received):</p>
-	<p><input type="text" name="KEY" required></p>
+	<input type="text" name="KEY" placeholder="your secret key" required>
 
 	{% if allow_empty_submissions %}
-	    <p>The organisers have decided to allow empty submissions. So you are allowed to submit the form keeping some positions empty. Mostly this happens when they do not keep NOTA options enabled.</p>
-		<p>WARNING: You won't be alerted if you submit the form by mistake without selecting any candidate.</p>
+	    <p class="info">The organisers have decided to allow empty submissions. So you are allowed to submit the form keeping some positions empty. Mostly this happens when they do not keep NOTA options enabled.</p>
+		<p class="warning">WARNING: You won't be alerted if you submit the form by mistake without selecting any candidate.</p>
 	{% endif %}
 
 	{% for position, candidates in candidates.items() %}
-	{% set sanitized_position = position|replace(' ', '_') %}
-	<p>Your Vote for <strong>{{ position|upper }}</strong>:</p>
-	{% for candidate in candidates %}
-	<p>
-		<input type="radio" id="{{ sanitized_position }}_{{ loop.index }}" name="{{ position }}"
-			value="{{ candidate }}" {% if not allow_empty_submissions %}required{% endif %}>
-		<label for="{{ sanitized_position }}_{{ loop.index }}">{{ candidate }}</label>
-	</p>
-	{% endfor %}
-	<br>
+		{% set sanitized_position = position|replace(' ', '_') %}
+		<p>Your Vote for <strong>{{ position|upper }}</strong>:</p>
+		{% for candidate in candidates %}
+			<div>
+				<input type="radio" id="{{ sanitized_position }}_{{ loop.index }}" name="{{ position }}"
+					value="{{ candidate }}" {% if not allow_empty_submissions %}required{% endif %}>
+				<label for="{{ sanitized_position }}_{{ loop.index }}">{{ candidate }}</label>
+			</div>
+		{% endfor %}
+		<br>
 	{% endfor %}
 
-	<p><input type="submit" value="Vote"></p>
+	<input type="submit" value="Vote">
 </form>
 
 {% endblock %}

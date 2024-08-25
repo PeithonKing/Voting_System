@@ -1,0 +1,88 @@
+/*styles for base.html*/
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/*styles for failure.html*/
+
+/*styles for home.html*/
+form{
+    background-color:darkkhaki;
+    border: 0.125em solid black;
+    padding: 1.25em;
+}
+
+form input[name="KEY"]{
+    font-family: monospace;
+}
+
+form p.info{
+    color: aqua;
+    background-color: black;
+    padding: 0.8em;
+}
+
+form p.warning{
+    color: red;
+    background-color: black;
+    font-weight: bolder;
+    font-family: sans-serif;
+    border: 1px inset wheat;
+    padding: 0.8em;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+}
+
+/*Options*/
+form input[type=radio]{
+    display: none;
+}
+
+form input[type=radio] + label{
+    display: flex;
+    border: 0.125em solid black;
+    margin: 0.625em;
+    width: 25%;
+    padding: 1%;
+    background-color: aliceblue;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form input[type=radio] + label:hover{
+    background-color: #85c0aa;
+}
+
+form input[type=radio]:checked + label{
+    background-color: #04aa6d;
+    color: #fff;
+}
+
+form input[type=radio] + label:active{
+    animation: clickAnimation 0.2s ease-in-out;
+}
+
+@keyframes clickAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/*submit button*/
+form input[type=submit]{
+    background-color: black;
+    color: #fff;
+    width: 4.5em;
+    height: 2.5em;
+    font-size:x-large;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+form input[type=submit]:hover{
+    background-color: aqua;
+    color: #000;
+    transform: scale(1.1);
+}
+
+/*styles for results.html*/
+
+/*styles for success.html*/
