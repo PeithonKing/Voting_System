@@ -8,8 +8,8 @@ Vote | {{ organization }} Election
 {% block content %}
 
 <form action="/vote" method="post">
-	<p>Enter your SECRET_KEY in this box (you will find this in the email you received):</p>
-	<input type="text" name="KEY" placeholder="your secret key" required>
+	<p class="KEY">you will find <input type="text" name="KEY" placeholder="your SECRET_KEY" required> in the email you received</p>
+	
 
 	{% if allow_empty_submissions %}
 	    <p class="info">The organisers have decided to allow empty submissions. So you are allowed to submit the form keeping some positions empty. Mostly this happens when they do not keep NOTA options enabled.</p>
@@ -18,7 +18,7 @@ Vote | {{ organization }} Election
 
 	{% for position, candidates in candidates.items() %}
 		{% set sanitized_position = position|replace(' ', '_') %}
-		<p>Your Vote for <strong>{{ position|upper }}</strong>:</p>
+		<p class="position">Your Vote for <strong>{{ position|upper }}</strong>:</p>
 		{% for candidate in candidates %}
 			<div>
 				<input type="radio" id="{{ sanitized_position }}_{{ loop.index }}" name="{{ position }}"
@@ -29,7 +29,8 @@ Vote | {{ organization }} Election
 		<br>
 	{% endfor %}
 
-	<input type="submit" value="Vote">
+	<p>You can Think again, but can not <input type="submit" value="Vote"> again!</p>
+	
 </form>
 
 {% endblock %}
