@@ -8,7 +8,7 @@ import random
 import json
 from tqdm import tqdm
 
-from example_settings import *
+from settings import *
 
 class Email:
     def __init__(self, email, password):

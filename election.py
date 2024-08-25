@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import json
 
-from example_settings import *
+from settings import *
 
 app = Flask(__name__)
 
