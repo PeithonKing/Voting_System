@@ -23,7 +23,7 @@ Vote | {{ organization }} Election
 			<div>
 				<input type="radio" id="{{ sanitized_position }}_{{ loop.index }}" name="{{ position }}"
 					value="{{ candidate }}" {% if not allow_empty_submissions %}required{% endif %}>
-				<label for="{{ sanitized_position }}_{{ loop.index }}">{{ candidate }}</label>
+				<label for="{{ sanitized_position }}_{{ loop.index }}">{{ candidate|title }}</label>
 			</div>
 		{% endfor %}
 		<br>
