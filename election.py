@@ -7,35 +7,35 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("home.html", candidates=candidates, allow_empty_submissions=allow_empty_submissions)
+    return render_template("home.html", candidates=candidates, allow_empty_submissions=allow_empty_submissions, organization=organization)
 
 @app.route("/vote", methods=["POST"])
 def vote():
     key = request.form.get("KEY")
-    
+
     # Load the key data
-    with open("all_keys.json") as f: 
+    with open("all_keys.json") as f:
         all_keys = json.load(f)
     try:
-        with open("done_keys.json") as f: 
+        with open("done_keys.json") as f:
             done_keys = json.load(f)
     except FileNotFoundError:
         done_keys = []
 
     # Check if the key is valid and not already used
     if key not in all_keys:
-        return render_template("failure.html", message="Invalid key!")
+        return render_template("failure.html", message="Invalid key!", organization=organization)
     if key in done_keys:
-        return render_template("failure.html", message="You have voted already!")
+        return render_template("failure.html", message="You have voted already!", organization=organization)
 
     # Append the key to the list of used keys
     done_keys.append(key)
-    with open("done_keys.json", "w") as f: 
+    with open("done_keys.json", "w") as f:
         json.dump(done_keys, f)
 
     # Load the existing votes data
     try:
-        with open("votes.json") as file: 
+        with open("votes.json") as file:
             data = json.load(file)
     except FileNotFoundError:
             data = {
@@ -51,7 +51,7 @@ def vote():
         candidate = request.form.get(position)
         if candidate:
             # replace _ with " " in positions
-            # position = 
+            # position =
             if position not in data:
                 data[position] = {}
             if candidate not in data[position]:
@@ -59,21 +59,20 @@ def vote():
             data[position][candidate] += 1
 
     # Save the updated votes data
-    with open("votes.json", "w") as file: 
+    with open("votes.json", "w") as file:
         json.dump(data, file, indent=4)
 
     # Render the success page
-    return render_template("success.html")
+    return render_template("success.html", organization=organization)
 
-@app.route("/res")
+@app.route("/live")
 def results():
     try:
-        with open("votes.json") as file: 
+        with open("votes.json") as file:
             data = json.load(file)
     except FileNotFoundError:
-        return render_template("results.html", message="No votes yet!", results={})
-
-    return render_template("results.html", message=None, results=data)
+        return render_template("results.html", message="No votes yet!", results={}, organization=organization)
+    return render_template("results.html", message=None, results=data, organization=organization)
 
 if __name__ == "__main__":
     app.run(debug=debug, host=IP, port=PORT)

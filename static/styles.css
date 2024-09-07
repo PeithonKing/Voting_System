@@ -5,23 +5,20 @@ body{
 /*styles for failure.html*/
 
 /*styles for home.html*/
-form{
-    background-color: #4e0096 /*#a742f5*/;
+form {
+    background-color: #794b43;
     border: 0.125em solid black;
     border-radius: 1em;
     padding: 1.25em;
     color: #fff;
+    width: 50vw;
+    margin: 0 auto; /* Centers the element horizontally */
 }
 
-form p.KEY input{
+form input{
     border: 0.125em solid #fff;
-    background-color: #000;
-    color: white;
-    width: 9.5em;
-}
-
-form p.KEY input::placeholder{
-    font-style: italic;
+    width: 90%;
+    height: 2em;
 }
 
 form p.info{
@@ -57,7 +54,7 @@ form input[type=radio] + label{
     border: 0.125em solid black;
     border-radius: 0.5em;
     margin-bottom: 0.625em;
-    width: 25%;
+    width: 90%;
     padding: 1%;
     background-color: whitesmoke;
     color: gray;
@@ -116,3 +113,18 @@ form input[type=submit]:hover{
 /*styles for results.html*/
 
 /*styles for success.html*/
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    form {
+        width: 90vw;
+    }
+}

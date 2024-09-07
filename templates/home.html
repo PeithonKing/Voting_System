@@ -7,9 +7,13 @@ Vote | {{ organization }} Election
 
 {% block content %}
 
+
 <form action="/vote" method="post">
-	<p class="KEY">you will find <input type="text" name="KEY" placeholder="your SECRET_KEY" required> in the email you received</p>
-	
+	<!-- <img src="../static/logo.jpeg" alt="{{ organization }} Logo" class="logo"> -->
+
+	<input type="text" name="KEY" placeholder="SECRET_KEY" required>
+
+	<p>you will find your secret key in the email you received</p>
 
 	{% if allow_empty_submissions %}
 	    <p class="info">The organisers have decided to allow empty submissions. So you are allowed to submit the form keeping some positions empty. Mostly this happens when they do not keep NOTA options enabled.</p>
