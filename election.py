@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("home.html", candidates=candidates, allow_empty_submissions=allow_empty_submissions, organization=organization)
+    return render_template("home.html", candidates=candidates, allow_empty_submissions=allow_empty_submissions, organisation=organisation)
 
 @app.route("/vote", methods=["POST"])
 def vote():
@@ -24,9 +24,9 @@ def vote():
 
     # Check if the key is valid and not already used
     if key not in all_keys:
-        return render_template("failure.html", message="Invalid key!", organization=organization)
+        return render_template("failure.html", message="Invalid key!", organisation=organisation)
     if key in done_keys:
-        return render_template("failure.html", message="You have voted already!", organization=organization)
+        return render_template("failure.html", message="You have voted already!", organisation=organisation)
 
     # Append the key to the list of used keys
     done_keys.append(key)
@@ -63,7 +63,7 @@ def vote():
         json.dump(data, file, indent=4)
 
     # Render the success page
-    return render_template("success.html", organization=organization)
+    return render_template("success.html", organisation=organisation)
 
 @app.route("/live")
 def results():
@@ -71,8 +71,8 @@ def results():
         with open("votes.json") as file:
             data = json.load(file)
     except FileNotFoundError:
-        return render_template("results.html", message="No votes yet!", results={}, organization=organization)
-    return render_template("results.html", message=None, results=data, organization=organization)
+        return render_template("results.html", message="No votes yet!", results={}, organisation=organisation)
+    return render_template("results.html", message=None, results=data, organisation=organisation)
 
 if __name__ == "__main__":
     app.run(debug=debug, host=IP, port=PORT)
